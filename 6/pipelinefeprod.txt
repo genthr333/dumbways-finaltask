@@ -1,0 +1,45 @@
+name: Build and Deploy Frontend production
+
+on:
+  push:
+    branches: [ "production" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+
+        run: |
+          docker build -t ${{ secrets.PROD_DOCKER_SERVER }}/fe-dumbways:production \
+            --build-arg REACT_APP_BASE_URL=${{ secrets.PROD_REACT_APP_BASE_URL }} .
+
+      - name: Push to Private Registry
+        run: docker push ${{ secrets.PROD_DOCKER_SERVER }}/fe-dumbways:production
+#testt typo secret bisa/ngga
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_SERVER_IP }}
+          username: ${{ secrets.PROD_SERVER_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          port: 6969
+          script: |
+            # Login/Pull dari registry sendiri
+            docker pull ${{ secrets.PROD_DOCKER_SERVER }}/fe-dumbways:production
+
+            # Stop dan hapus container lama 
+            docker stop fe-production || true
+            docker rm fe-production || true
+
+            # Jalankan container baru
+            docker run -d --name fe-production \
+              -p 3001:80 \
+              ${{ secrets.PROD_DOCKER_SERVER }}/fe-dumbways:production

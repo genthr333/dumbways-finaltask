@@ -1,0 +1,46 @@
+name: build and deploy babackend
+
+on:
+  push:
+    branches: [ "staging" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_SERVER }}/be-dumbmerch:staging .
+
+      - name: Push to Private Registry
+        run: docker push ${{ secrets.DOCKER_SERVER }}/be-dumbmerch:staging
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 6969
+          script: |
+            docker pull ${{ secrets.DOCKER_SERVER }}/be-dumbmerch:staging
+            docker stop be-staging || true
+            docker rm be-staging || true
+            docker run -d --name be-staging \
+              -p 5001:5000 \
+              -e SECRET_KEY="${{ secrets.SECRET_KEY }}" \
+              -e PATH_FILE="${{ secrets.PATH_FILE }}" \
+              -e DB_HOST="${{ secrets.DB_HOST }}" \
+              -e DB_USER="${{ secrets.DB_USER }}" \
+              -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+              -e DB_NAME="${{ secrets.DB_NAME }}" \
+              -e DB_PORT="5432" \
+              -e PORT="5000" \
+              ${{ secrets.DOCKER_SERVER }}/be-dumbmerch:staging
+#test secret DOCKER_SERVER

@@ -1,0 +1,45 @@
+name: Build and Deploy Frontend Staging
+
+on:
+  push:
+    branches: [ "staging" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+
+        run: |
+          docker build -t ${{ secrets.DOCKER_SERVER }}/fe-dumbways:staging \
+            --build-arg REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }} .
+
+      - name: Push to Private Registry
+        run: docker push ${{ secrets.DOCKER_SERVER }}/fe-dumbways:staging
+#testt typo secret bisa/ngga
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 6969
+          script: |
+            # Login/Pull dari registry sendiri
+            docker pull ${{ secrets.DOCKER_SERVER }}/fe-dumbways:staging
+
+            # Stop dan hapus container lama (pake nama fe-staging biar sinkron)
+            docker stop fe-staging || true
+            docker rm fe-staging || true
+
+            # Jalankan container baru
+            docker run -d --name fe-staging \
+              -p 3000:80 \
+              ${{ secrets.DOCKER_SERVER }}/fe-dumbways:staging
