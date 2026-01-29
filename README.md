@@ -8,7 +8,7 @@ Attach SSH keys & IP configuration to all VMs and All Server Configuration using
 ### Langkah 1
 
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="1/1.png" widthn=="700" alt="command"> </p>
 
 
 
