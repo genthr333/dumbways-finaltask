@@ -2,33 +2,65 @@
 
 
 ## 1 Server Provisioning & Initial Configuration
-Attach SSH keys & IP configuration to all VMs and All Server Configuration using Ansible
 
 
-### Langkah 1
+This section covers the initial environment preparation and server provisioning.
+
+
+### server provisioning
 
 
 <p alig"center"> <img src="1/1.png" widthn=="700" alt="command"> </p>
 
 
+For this final task, the infrastructure is deployed using Biznet GIO NEO Lite with the following instances:
 
+App Server: Dedicated for running the main application services.
 
-
+Gateway Server: Dedicated as the entry point for traffic (Reverse Proxy).
 <p align="center">
   <img src="" width="48%" />
   <img src="" width="48%" />
 </p>
 
 
+### install wsl and env
 
 
-### Langkah 2
+To manage the infrastructure, I configured a local environment using WSL (Windows Subsystem for Linux) and a dedicated Python Virtual Environment for Ansible:
+
+- WSL Installation: bash wsl --install
+
+- Environment & Ansible Setup:
+
+sudo apt update && sudo apt install python3-venv -y
+python3 -m venv ansible-env
+source ansible-env/bin/activate
+pip install ansible
 
 
+<p alig"center"> <img src="1/1c.png" widthn=="700" alt="command"> </p>
 
 
+### attach SSH keys to server
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+
+<p alig"center"> <img src="1/ssh.PNG" widthn=="700" alt="command"> </p>
+
+
+Security is managed by implementing SSH Key based authentication. I generated a pair of keys locally and attach the public key to the ~/.ssh/authorized_keys file on both the App and Gateway servers to enable secure, passwordless access. The private key was then integrated into the WSL environment with proper permissions to ensure a seamless and secure connection for automation.
+
+
+### Create inventory file for playbook
+
+
+<p alig"center"> <img src="1/1b.png" widthn=="700" alt="command"> </p>
+
+
+To streamline the automation process, I created an inventory file to map the server roles and IP addresses. This inventory acts as the primary navigation for Ansible to execute tasks. Following this, I developed a structured Ansible Playbook designed to automate system updates, security hardening, and package installations across all provisioned instances.
+
+
+<p alig"center"> <img src="1/1c.png" widthn=="700" alt="command"> </p>
 
 
 ## 2 Version Control System (VCS) Setup
