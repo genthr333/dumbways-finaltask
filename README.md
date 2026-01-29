@@ -87,8 +87,8 @@ and pushed the local source code to their respective remote repositories.
 
 
 <p align="center">
-  <img src="2/2.png" width="48%" />
-  <img src="2/2a.png" width="48%" />
+  <img src="2/2.png" width=="700" />
+  <img src="2/2a.png" width=="700" />
 </p>
 
 
@@ -99,8 +99,8 @@ customized the .env files for both services to ensure seamless integration: the 
 
 
 <p align="center">
-  <img src="2/4.png" width="48%" />
-  <img src="2/4a.png" width="48%" />
+  <img src="2/4.png" width=="700" />
+  <img src="2/4a.png" width=="700" />
 </p>
 
 
@@ -111,8 +111,8 @@ To maintain security, sensitive information such as database credentials and ser
 
 
 <p align="center">
-  <img src="2/3.png" width="48%" />
-  <img src="2/3a.png" width="48%" />
+  <img src="2/3.png" width=="700" />
+  <img src="2/3a.png" width=="700" />
 </p>
 
 
