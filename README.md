@@ -33,13 +33,13 @@ To manage the infrastructure, I configured a local environment using WSL (Window
 
 - Environment & Ansible Setup:
 
-sudo apt update && sudo apt install python3-venv -y
+-- sudo apt update && sudo apt install python3-venv -y
 
-python3 -m venv ansible-env
+-- python3 -m venv ansible-env
 
-source ansible-env/bin/activate
+-- source ansible-env/bin/activate
 
-pip install ansible
+-- pip install ansible
 
 
 <p alig"center"> <img src="1/1c.png" widthn=="700" alt="command"> </p>
