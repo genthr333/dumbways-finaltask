@@ -18,10 +18,6 @@ For this final task, the infrastructure is deployed using Biznet GIO NEO Lite wi
 App Server: Dedicated for running the main application services.
 
 Gateway Server: Dedicated as the entry point for traffic (Reverse Proxy).
-<p align="center">
-  <img src="" width="48%" />
-  <img src="" width="48%" />
-</p>
 
 
 ### install wsl and env
@@ -67,43 +63,60 @@ To streamline the automation process, I created an inventory file to map the ser
 
 
 ## 2 Version Control System (VCS) Setup
-Create a repository on Github or Gitlab
-Private repository access
-Set up 2 branches
-Staging
-Production
-Each Branch have their own CI/CD
 
 
-### langkah 1 
+### Create a repository on Github
 
 
+The development process began by cloning the provided Frontend (FE) and Backend (BE) repositories into the WSL environment. Then create Staging and Production branches for both repositories to maintain code stability. make the repositories private on GitHub, configured SSH keys for secure authentication.
 
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="2/sshgit.PNG" widthn=="700" alt="command"> </p>
 
 
-
-
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
-
-
+and pushed the local source code to their respective remote repositories.
 
 
 <p align="center">
-  <img src="" width="48%" />
-  <img src="" width="48%" />
+  <img src="2/1.png" width="48%" />
+  <img src="2/1a.png" width="48%" />
 </p>
 
 
+### Modify .env file
 
 
-### langkah 2
+<p align="center">
+  <img src="2/2.png" width="48%" />
+  <img src="2/2a.png" width="48%" />
+</p>
 
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+customized the .env files for both services to ensure seamless integration: the Frontend was configured to communicate with the Backend API, and the Backend was linked to the PostgreSQL database.
 
 
+### Add secrets to repository fe and be
+
+
+<p align="center">
+  <img src="2/4.png" width="48%" />
+  <img src="2/4a.png" width="48%" />
+</p>
+
+
+To maintain security, sensitive information such as database credentials and server IPs were not hardcoded; instead, they were stored securely as GitHub Secrets within each repository.
+
+
+### Create Workflows file
+
+
+<p align="center">
+  <img src="2/3.png" width="48%" />
+  <img src="2/3a.png" width="48%" />
+</p>
+
+
+To automate the deployment workflow, I implemented GitHub Actions by creating custom workflow files in each repository. These pipelines are triggered upon pushes to the Staging or Production branches, ensuring that every code change is automatically tested, built, and ready for deployment to the servers.
 
 
 ## 3. Server Hardening & User Management
