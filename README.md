@@ -78,8 +78,8 @@ and pushed the local source code to their respective remote repositories.
 
 
 <p align="center">
-  <img src="2/1.png" width="48%" />
-  <img src="2/1a.png" width="48%" />
+  <img src="2/1.png" width="60%" />
+  <img src="2/1a.png" width="60%" />
 </p>
 
 
