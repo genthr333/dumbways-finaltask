@@ -175,7 +175,7 @@ To simplify the connection process, I created a local SSH Config file. This conf
 automated the installation of the Docker Engine across all servers using an Ansible Playbook. The installation process was specifically configured to integrate with the finaltask-gen1 user, including adding the user to the docker group. This allows for running container commands without requiring root privileges, adhering to security best practices.
 
 
-### install registry on top docker
+### deploy private registry on top docker
 
 
 <p alig"center"> <img src="4/registry.png" widthn=="700" alt="command"> </p>
@@ -190,35 +190,73 @@ To manage custom application images, I deployed a Private Docker Registry as a c
 ## 5. Database & Application Orchestration
 
 
-### langkah 1
+### deploy database PostgreSQL
 
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="5/1.png" widthn=="700" alt="command"> </p>
 
 
+<p alig"center"> <img src="5/1a.png" widthn=="700" alt="command"> </p>
 
 
-### langkah 2
+I deployed PostgreSQL on the App Server using Docker, exposed on the default port 5432. To ensure data persistence, I configured a Docker Volume mapped to the home directory of the service user (/home/finaltask-gen1/). The database credentials and environment variables were securely managed using GitHub Secrets, ensuring that sensitive data is injected dynamically during the deployment process.
+
+<p alig"center"> <img src="5/dockercon.png" widthn=="700" alt="command"> </p>
 
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="5/dblist.png" widthn=="700" alt="command"> </p>
 
 
+### create docker file on each fe and be
 
 
-### langkah 3
+<p alig"center"> <img src="5/dockerfile.png" widthn=="700" alt="command"> </p>
 
 
-<p alig"center"> <img src="" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="5/dockerfile1.png" widthn=="700" alt="command"> </p>
 
 
+For both Frontend and Backend services, I implemented Multi stage Docker Builds. This approach significantly reduces the final image size by separating the build environment from the production runtime. The result is a lightweight, secure, and high-performance container image ready for distribution via the private registry.
 
 
-### langkah 4
+### create workflows on repositories fe and be
 
 
-<p alig"center"> <img src="monitoring.png" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="4/1.png" widthn=="700" alt="command"> </p>
 
+
+<p alig"center"> <img src="4/1a.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="4/2.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="4/2a.png" widthn=="700" alt="command"> </p>
+
+
+I created dedicated deployment workflows (deploy-fe.yml and deploy-be.yml) within GitHub Actions to orchestrate the integration:
+
+- Frontend: Configured to integrate seamlessly with the Backend API.
+
+- Backend: Includes an automated Database Migration step to ensure the PostgreSQL schema stays synchronized with the application code. The deployment was first pushed and verified on the Staging branch, followed by a status check using docker ps to ensure all containers were running optimally.
+
+
+<p alig"center"> <img src="5/dockercon.png" widthn=="700" alt="command"> </p>
+
+
+check image on docker ps
+
+
+<p alig"center"> <img src="5/fesuccess.png" widthn=="700" alt="command"> </p>
+
+
+test register and login
+
+
+<p alig"center"> <img src="5/db.png" widthn=="700" alt="command"> </p>
+
+
+check on db user.
 
 
 
