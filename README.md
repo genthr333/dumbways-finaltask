@@ -1,4 +1,4 @@
-# Final Task
+# Dumbmerch deployment
 
 
 ## 1 Server Provisioning & Initial Configuration
@@ -235,6 +235,16 @@ For both Frontend and Backend services, I implemented Multi stage Docker Builds.
 
 
 I created dedicated deployment workflows (deploy-fe.yml and deploy-be.yml) within GitHub Actions to orchestrate the integration:
+
+The workflow follows these critical steps:
+
+- Repository Pull & Image Build: Automatically pulls the latest code and builds the image using the multi-stage process.
+
+- Database Migration: The Backend pipeline includes a migration step to ensure the PostgreSQL schema stays synchronized with the latest code changes.
+
+- Secure Deployment: The pipeline connects to the server via SSH, pulls the newly built image from the Private Docker Registry, and redeploys the application containers.
+
+- Integrity Check: The process concludes by verifying the container status using docker ps to ensure all services are running correctly in the Staging and Production environments.
 
 - Frontend: Configured to integrate seamlessly with the Backend API.
 
