@@ -294,6 +294,15 @@ after pushing the code to the staging branch, i monitored the execution of the g
 <p alig"center"> <img src="2/3e.png" widthn=="700" alt="command"> </p>
 
 
+<p alig"center"> <img src="6/bestaging.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="6/bestaging1.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="6/bestaging2.png" widthn=="700" alt="command"> </p>
+
+
 the deployment is considered successful only when the pipeline returns a "green" status (passed) for all jobs. this visual confirmation in github actions serves as the first gate of validation, ensuring that the staging environment is running the latest stable version of the application before any further testing or promotion to production.
 
 
