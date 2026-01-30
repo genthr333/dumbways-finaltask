@@ -120,36 +120,44 @@ To automate the deployment workflow, I implemented GitHub Actions by creating cu
 
 
 ## 3. Server Hardening & User Management
-Create new user finaltask-gen
-Server login with SSH key and Password
-Create a working SSH config to log into servers
-Only use 1 SSH keys for all purpose (Repository, CI/CD etc.)
-UFW enabled with only used ports allowed
-Change ssh port from (22) to (6969)
 
 
-### langkah 1
+### Create new user finaltask-gen1 and hardening
 
 
-<p align="center">
-  <img src="" width="48%" />
-  <img src="" width="48%" />
-</p>
+I automated the creation of a new administrative user, finaltask-gen1, across all servers using an Ansible Playbook. This user serves as the primary service account for all deployment tasks. 
 
 
+<p alig"center"> <img src="3/hardening.png" widthn=="700" alt="command"> </p>
 
 
-### langkah 2
+<p alig"center"> <img src="3/hardeninga.png" widthn=="700" alt="command"> </p>
 
 
+To ensure secure access, the playbook also manages only one SSH key for distribution, allowing the user to log in securely while maintaining proper permission levels.
+To enhance server security, I implemented several network hardening measures via Ansible:
+
+- SSH Port Customization: Changed the default SSH port from 22 to 6969 to mitigate brute-force attacks.
+
+- Firewall Rules: Configured UFW (Uncomplicated Firewall) to only allow essential traffic. Specifically, I opened ports 3000, 3001, 5000, and 5001 for application access, while explicitly managing other incoming traffic to maintain a strict security posture.
 
 
-<p align="center">
-  <img src="" width="48%" />
-  <img src="" width="48%" />
-</p>
+<p alig"center"> <img src="3/1.png" widthn=="700" alt="command"> </p>
 
 
+<p alig"center"> <img src="3/2.png" widthn=="700" alt="command"> </p>
+
+
+### Create a working SSH config to log in into server
+
+
+<p alig"center"> <img src="3/config.png" widthn=="700" alt="command"> </p>
+
+
+To simplify the connection process, I created a local SSH Config file. This configuration maps the hostnames for both the App and Gateway servers, matching the user and custom ports defined in the Ansible Playbook. This setup allows for seamless access using a simple ssh app or ssh gateway command, ensuring consistency between the automation scripts and manual server management.
+
+
+<p alig"center"> <img src="3/2a.png" widthn=="700" alt="command"> </p>
 
 
 ## 4. Private Docker Registry Deployment
