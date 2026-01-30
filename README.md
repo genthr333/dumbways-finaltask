@@ -178,7 +178,7 @@ automated the installation of the Docker Engine across all servers using an Ansi
 ### install registry on top docker
 
 
-<p alig"center"> <img src="4/registryr.png" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="4/registry.png" widthn=="700" alt="command"> </p>
 
 
 To manage custom application images, I deployed a Private Docker Registry as a containerized service. Using Ansible, the registry was configured to run on port 5000 with persistent storage. This private registry serves as the central hub for storing and distributing built images (Frontend and Backend) across the staging and production environments, ensuring faster and more secure deployment cycles.
