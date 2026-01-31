@@ -38,7 +38,7 @@ to manage the infrastructure, i configured a local environment using WSL (window
     pip install ansible
 
 
-<p alig"center"> <img src="1/1c.png" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="1/venv.png" widthn=="700" alt="command"> </p>
 
 
 ### attach SSH keys to server
@@ -141,6 +141,9 @@ to enhance server security, I implemented several network hardening measures via
 - ssh port customization: changed the default SSH port from 22 to 6969 to mitigate brute force attacks.
 
 - firewall rules: configured ufw (uncomplicated firewall) to only allow essential traffic. specifically, i opened ports 3000, 3001, 5000, and 5001 for application access, while explicitly managing other incoming traffic to maintain a strict security posture.
+
+
+<p alig"center"> <img src="1/1a.png" widthn=="700" alt="command"> </p>
 
 
 <p alig"center"> <img src="3/1.png" widthn=="700" alt="command"> </p>
