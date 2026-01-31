@@ -416,7 +416,7 @@ after verifying all services in the staging environment, i performed push of the
 check website run on https and domain
 
 
-<p alig"center"> <img src="6/feprod2.png" widthn=="700" alt="command"> </p>
+<p alig"center"> <img src="5/prod.png" widthn=="700" alt="command"> </p>
 
 
 by merging and pushing to the Production branch, I ensured that the latest stable features and security patches were seamlessly deployed to the production servers. this step completes the development lifecycle, moving the application from testing to a fully operational state, accessible via the production domains with full https encryption and integrated monitoring
@@ -428,7 +428,43 @@ by merging and pushing to the Production branch, I ensured that the latest stabl
 ### install node exporter
 
 
+<p alig"center"> <img src="7/1.png" widthn=="700" alt="command"> </p>
+
+
 ### install prometheus
 
 
-### install
+<p alig"center"> <img src="7/prome/prome.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="7/prome/scrape.png" widthn=="700" alt="command"> </p>
+
+
+### install grafana
+
+
+<p alig"center"> <img src="7/graf/grafana.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="7/graf/grafana1.png" widthn=="700" alt="command"> </p>
+
+
+### set up basic auth on prometheus
+
+
+<p alig"center"> <img src="7/prome/auth.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="7/prome/auth1.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="7/prome/auth2.png" widthn=="700" alt="command"> </p>
+
+
+<p alig"center"> <img src="7/prome/auth3.png" widthn=="700" alt="command"> </p>
+
+
+### set up grafana dashboard and alert
+
+
+
